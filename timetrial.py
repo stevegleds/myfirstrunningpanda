@@ -8,5 +8,19 @@ try:
 except:
     print("The file is either out of date or not found. Please save an up to date file to this folder")
 
-for dat
+def add_runner(runner, runner_list):
+    return runner_list.append(runner)
+
+runner_list = []
+for index, row in data.iterrows():
+    print(index, row['Runner'], row['Pace'])
+    if row['Runner'] in runner_list:
+        pass
+    else:
+        add_runner(row['Runner'], runner_list)
+
+print('List of runners: ', runner_list)
+
+
+
 

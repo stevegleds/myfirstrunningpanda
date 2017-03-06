@@ -1,4 +1,6 @@
 06 March 2017
 Created project.
 Used existing file checking from mycookbook to test currency of file
-Next step: Will need to create list of runners
+Created list of runners
+Next: create dictionary to store pb
+also: install jupyter
