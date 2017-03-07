@@ -21,6 +21,9 @@ for index, row in data.iterrows():
 
 print('List of runners: ', runner_list)
 
+pbs = data.groupby(['Runner'])['Pace'].transform(min) == data['Pace']
+print(data[pbs])
+
 
 
 
