@@ -1,3 +1,11 @@
+14 March 2017
+Added code to select brief or full csv
+Also added option to include full excel. Installed xlrd to be able to read from xls file
+Trying to sort pbs by runner to see if it is working correctly
+Working on jupyter noteboook because this is best way to work with pandas for testing.
+Takes time to load.
+Need to look at later.
+
 12 March 2017
 Refactored 'data' to 'df' to avoid confusion with learning
 07 March 2017
