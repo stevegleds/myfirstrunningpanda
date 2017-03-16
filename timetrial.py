@@ -1,13 +1,17 @@
 import pandas as pd
+import numpy as np
 from readwrite import process_sourcefile
 
 response = input('Use Brief csv (B) or Full (F) csv file? or complete Excel file (X)')
-if response.lower() == 'f':
+if response.lower() == 'b':
     sourcefile = 'timetrialbrief.csv'
 elif response.lower() == 'f':
     sourcefile = 'timetrialfull.csv'
-else:
+elif response.lower() == 'x':
     sourcefile = 'errraces.xlsm'
+else:
+    print("You didn't specify a correct file. I am going to use the quickest - Brief")
+    sourcefile = 'timetrialbrief.csv'
 print("We are using file: ", sourcefile)
 
 try:
@@ -25,6 +29,10 @@ else:
 def add_runner(runner, runner_list):
     return runner_list.append(runner)
 
+def print_data(df):
+    for index, row in df.iterrows():
+        print(index, row['Runner'], row['Pace'])
+
 runner_list = []
 for index, row in df.iterrows():
     print(index, row['Runner'], row['Pace'])
@@ -33,10 +41,14 @@ for index, row in df.iterrows():
     else:
         add_runner(row['Runner'], runner_list)
 
+
 print('List of runners: ', runner_list)
 
-pbs = df.groupby(['Runner'])['Pace'].transform(min) == df['Pace']
-print(df[pbs].sort_index('Runner'))
+byrunner = df.groupby('Runner')
+byrunner['Digitime'].min()
+byrunner['Digitime'].agg([np.min, np.sum, np.mean, len])
+pb = byrunner['Digitime'].transform(min) == df['Digitime']
+print(df[pb].sort(['Runner'], ascending=[True]))
 
 
 

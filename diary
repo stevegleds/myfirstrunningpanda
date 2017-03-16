@@ -1,3 +1,7 @@
+16 March 2017
+Added sorting and minimum values etc.
+Need to find a nice way to export to csv
+
 14 March 2017
 Added code to select brief or full csv
 Also added option to include full excel. Installed xlrd to be able to read from xls file
