@@ -1,3 +1,8 @@
+18 March 2017
+Added code to find pbs between two races (jan and feb 2015)
+Add date parsing to readcsv .
+! dayfist = True !
+
 16 March 2017
 Added sorting and minimum values etc.
 Need to find a nice way to export to csv

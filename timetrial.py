@@ -22,15 +22,16 @@ except:
     print("The file is either out of date or not found. Please save an up to date file to this folder")
 
 if response.lower() == 'x':
-    df = pd.read_excel(sourcefile, sheetname='Timetrialresults', names=['Date', 'Runner', 'Time', 'Pace', 'Digitime'])
+    df = pd.read_excel(sourcefile, sheetname='Timetrialresults', parse_dates=['Date'], names=['Date', 'Runner', 'Time', 'Pace', 'Digitime'])
 else:
-    df = pd.read_csv(sourcefile)  # creates df with header conveniently inferred by default
+    df = pd.read_csv(sourcefile, parse_dates=['Date'], dayfirst=True)  # creates df with header conveniently inferred by default
 
 def add_runner(runner, runner_list):
     return runner_list.append(runner)
 
 def print_data(df):
     for index, row in df.iterrows():
+        print('These are the runners and their paces for all races:')
         print(index, row['Runner'], row['Pace'])
 
 runner_list = []
@@ -40,6 +41,7 @@ for index, row in df.iterrows():
         pass
     else:
         add_runner(row['Runner'], runner_list)
+        print(row['Runner'], 'has now been added to the list for the first time on : ', row['Date'])
 
 
 print('List of runners: ', runner_list)
@@ -48,8 +50,24 @@ byrunner = df.groupby('Runner')
 byrunner['Digitime'].min()
 byrunner['Digitime'].agg([np.min, np.sum, np.mean, len])
 pb = byrunner['Digitime'].transform(min) == df['Digitime']
-print(df[pb].sort(['Runner'], ascending=[True]))
-
-
-
-
+# print(df[pb].sort_values(by=['Runner'], ascending=[True]))
+'''
+This section is work in progress to identify pbs
+'''
+jan2015 = df[df.Date == '2015-01-05']
+feb2015 = df[df.Date == '2015-02-02']
+print('The results for January 2015 were: \n', jan2015)
+print('The results for February 2015 were: \n', feb2015)
+print('The average pace for January was: ', jan2015['Digitime'].mean(), '\n and for February was: ', feb2015['Digitime'].mean())
+print(df[df['Runner'].str.contains('Craig Bingham')])  # prints all Craig's results
+latest_results = feb2015
+previous_results = jan2015
+for runner in runner_list:
+    if runner in latest_results.Runner.values and runner in previous_results.Runner.values:
+        latest_race = latest_results[latest_results['Runner'].str.contains(runner)]
+        previous_race = previous_results[previous_results['Runner'].str.contains(runner)]
+        # print(latest_race)
+        # print(previous_race)
+        print('Latest time for {} was {} minutes'.format(runner, latest_race['Digitime'].values))
+        print('Previous time for {} was {} minutes' .format(runner, previous_race['Digitime'].values))
+        print('{} has improved by {} seconds \n' .format(runner, 60*(previous_race['Digitime'].values - latest_race['Digitime'].values)))
