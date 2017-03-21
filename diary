@@ -1,3 +1,10 @@
+21 March 2017
+'''
+Building class to store info.
+Having problem instantiating from the list of runners
+runners = {name: Person(name=name) for name in runner_list} - this seems to work but can't access class functions.
+'''
+
 18 March 2017
 Added code to find pbs between two races (jan and feb 2015)
 Add date parsing to readcsv .

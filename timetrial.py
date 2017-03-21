@@ -13,6 +13,18 @@ else:
     print("You didn't specify a correct file. I am going to use the quickest - Brief")
     sourcefile = 'timetrialbrief.csv'
 print("We are using file: ", sourcefile)
+'''
+Building class to store info.
+Having problem instantiating from the list of runners
+runners = {name: Person(name=name) for name in runner_list} - this seems to work but can't access class functions.
+'''
+class Person:
+    def __init__(self, name, created):
+        self.name = name.title() # makes sure we use capital first letters
+        self.created_date = created
+        pass
+    def __str__(self):
+        return '{} started on {}'.format(self.name, self.created_date)
 
 try:
     print(process_sourcefile(sourcefile))
@@ -42,6 +54,7 @@ for index, row in df.iterrows():
     else:
         add_runner(row['Runner'], runner_list)
         print(row['Runner'], 'has now been added to the list for the first time on : ', row['Date'])
+        str(row['Runner'])
 
 
 print('List of runners: ', runner_list)
