@@ -1,3 +1,7 @@
+22 March 2017
+Created classes.py file to work on creting runner class
+Finally got it working but now need to add init data like date created.
+For now it is default to today but want to be able to at least create function to add date and pb etc.
 21 March 2017
 '''
 Building class to store info.
