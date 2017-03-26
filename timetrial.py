@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 from readwrite import process_sourcefile
 
+''' Ask user which file to use 
+Then test to see if it is ok and create appropriate pandas datafile
+'''
 response = input('Use Brief csv (B) or Full (F) csv file? or complete Excel file (X)')
 if response.lower() == 'b':
     sourcefile = 'timetrialbrief.csv'
@@ -13,18 +16,6 @@ else:
     print("You didn't specify a correct file. I am going to use the quickest - Brief")
     sourcefile = 'timetrialbrief.csv'
 print("We are using file: ", sourcefile)
-'''
-Building class to store info.
-Having problem instantiating from the list of runners
-runners = {name: Person(name=name) for name in runner_list} - this seems to work but can't access class functions.
-'''
-class Person:
-    def __init__(self, name, created):
-        self.name = name.title() # makes sure we use capital first letters
-        self.created_date = created
-        pass
-    def __str__(self):
-        return '{} started on {}'.format(self.name, self.created_date)
 
 try:
     print(process_sourcefile(sourcefile))
@@ -38,32 +29,43 @@ if response.lower() == 'x':
 else:
     df = pd.read_csv(sourcefile, parse_dates=['Date'], dayfirst=True)  # creates df with header conveniently inferred by default
 
-def add_runner(runner, runner_list):
-    return runner_list.append(runner)
+'''
+Building class to store info.
+Instances are created from a dictionary created from the df
+Need to use this to store PB and previous PB
+'''
+class Person:
+    def __init__(self, name, created='today'):
+        self.name = name.title()  # makes sure we use capital first letters
+        self.created = created
 
+    def __str__(self):
+        return '{} started on {}'.format(self.name, self.created)
+
+# TODO see if this is used anywhere
 def print_data(df):
     for index, row in df.iterrows():
         print('These are the runners and their paces for all races:')
         print(index, row['Runner'], row['Pace'])
 
-runner_list = []
-for index, row in df.iterrows():
-    print(index, row['Runner'], row['Pace'])
-    if row['Runner'] in runner_list:
-        pass
-    else:
-        add_runner(row['Runner'], runner_list)
-        print(row['Runner'], 'has now been added to the list for the first time on : ', row['Date'])
-        str(row['Runner'])
+'''
+runnerdict will store information that will be used to create person instances
+'''
+runnerdict = dict(zip(df.Runner, df.Date))
+runners = {}
+for k, v in runnerdict.items():
+    runners[k] = Person(k, v)
+print('runner people created')
+for runner in runners:
+    print(runners[runner])
 
-
-print('List of runners: ', runner_list)
-
+# TODO document what these pandas tools are doing
 byrunner = df.groupby('Runner')
 byrunner['Digitime'].min()
 byrunner['Digitime'].agg([np.min, np.sum, np.mean, len])
 pb = byrunner['Digitime'].transform(min) == df['Digitime']
-# print(df[pb].sort_values(by=['Runner'], ascending=[True]))
+
+
 '''
 This section is work in progress to identify pbs
 '''
@@ -75,7 +77,7 @@ print('The average pace for January was: ', jan2015['Digitime'].mean(), '\n and 
 print(df[df['Runner'].str.contains('Craig Bingham')])  # prints all Craig's results
 latest_results = feb2015
 previous_results = jan2015
-for runner in runner_list:
+for runner in runnerdict:
     if runner in latest_results.Runner.values and runner in previous_results.Runner.values:
         latest_race = latest_results[latest_results['Runner'].str.contains(runner)]
         previous_race = previous_results[previous_results['Runner'].str.contains(runner)]
