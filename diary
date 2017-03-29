@@ -1,6 +1,10 @@
-26 March 2017
-Success! Created person objects and stored in runnerdict
-Need to see if can use runnerdict to access object parameters and functions with a view to finding pbs and difference from previous.
+29 March 2017
+Updated classes.py
+Modified Person class to initialise pbs
+Added methods to update them
+Created code to call the method
+
+Next step: find a way to do it for real for each runner
 
 22 March 2017
 Created classes.py file to work on creting runner class

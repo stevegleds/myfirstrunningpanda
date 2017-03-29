@@ -74,7 +74,7 @@ feb2015 = df[df.Date == '2015-02-02']
 print('The results for January 2015 were: \n', jan2015)
 print('The results for February 2015 were: \n', feb2015)
 print('The average pace for January was: ', jan2015['Digitime'].mean(), '\n and for February was: ', feb2015['Digitime'].mean())
-print(df[df['Runner'].str.contains('Craig Bingham')])  # prints all Craig's results
+# print(df[df['Runner'].str.contains('Craig Bingham')])  # prints all Craig's results
 latest_results = feb2015
 previous_results = jan2015
 for runner in runnerdict:
