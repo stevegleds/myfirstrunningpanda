@@ -1,3 +1,8 @@
+01 April 2017
+Created dated versions of results
+Created function that produces list of files in folders directory
+Need to present to user so they can easily choose.
+
 29 March 2017
 Updated classes.py
 Modified Person class to initialise pbs
@@ -20,7 +25,7 @@ runners = {name: Person(name=name) for name in runner_list} - this seems to work
 18 March 2017
 Added code to find pbs between two races (jan and feb 2015)
 Add date parsing to readcsv .
-! dayfist = True !
+! dayfirst = True !
 
 16 March 2017
 Added sorting and minimum values etc.

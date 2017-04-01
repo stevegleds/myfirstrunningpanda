@@ -22,3 +22,15 @@ def process_sourcefile(input_filename, old_file=False):
             raise SystemExit
     return True
 
+''' Produce list of files in folder'''
+#TODO present enumerated list to user
+folder = os.path.join('','results')
+def getfilelist(folder):
+    try:
+        filelist = os.listdir(folder)
+    except:
+        print('No such folder.')
+    for file in sorted(filelist):
+        print(file)
+getfilelist(folder)
+
