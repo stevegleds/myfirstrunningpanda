@@ -30,7 +30,9 @@ def getfilelist(folder):
         filelist = os.listdir(folder)
     except:
         print('No such folder.')
+    filechoice = []
     for file in sorted(filelist):
-        print(file)
-getfilelist(folder)
+        filechoice.append(file)
+    return filechoice
+
 

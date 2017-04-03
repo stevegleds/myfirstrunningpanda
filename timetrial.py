@@ -1,20 +1,28 @@
 import pandas as pd
 import numpy as np
-from readwrite import process_sourcefile
+import os
+from readwrite import process_sourcefile, getfilelist
 
 ''' Ask user which file to use 
 Then test to see if it is ok and create appropriate pandas datafile
 '''
-response = input('Use Brief csv (B) or Full (F) csv file? or complete Excel file (X)')
-if response.lower() == 'b':
-    sourcefile = 'timetrialbrief.csv'
-elif response.lower() == 'f':
-    sourcefile = 'timetrialfull.csv'
-elif response.lower() == 'x':
-    sourcefile = 'errraces.xlsm'
-else:
-    print("You didn't specify a correct file. I am going to use the quickest - Brief")
-    sourcefile = 'timetrialbrief.csv'
+folder = os.path.join('','results')
+
+def getfilelist(folder):
+    try:
+        filelist = os.listdir(folder)
+    except:
+        print('No such folder.')
+    filechoice = []
+    for file in sorted(filelist):
+        filechoice.append(file)
+    return filechoice
+
+filelist = getfilelist(folder)
+for file in enumerate(filelist):
+    print(file)
+
+sourcefile = os.path.join(folder, filelist[int(input('Which file do you want to use? '))])
 print("We are using file: ", sourcefile)
 
 try:
@@ -24,10 +32,7 @@ try:
 except:
     print("The file is either out of date or not found. Please save an up to date file to this folder")
 
-if response.lower() == 'x':
-    df = pd.read_excel(sourcefile, sheetname='Timetrialresults', parse_dates=['Date'], names=['Date', 'Runner', 'Time', 'Pace', 'Digitime'])
-else:
-    df = pd.read_csv(sourcefile, parse_dates=['Date'], dayfirst=True)  # creates df with header conveniently inferred by default
+df = pd.read_csv(sourcefile, parse_dates=['Date'], dayfirst=True)  # creates df with header conveniently inferred by default
 
 '''
 Building class to store info.

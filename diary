@@ -1,3 +1,7 @@
+03 April 2017
+Created simple list to get user to choose file and assigned answer to sourcefile
+Next step: work on adding pb to person objects from first file
+
 01 April 2017
 Created dated versions of results
 Created function that produces list of files in folders directory
