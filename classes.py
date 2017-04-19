@@ -1,8 +1,11 @@
 import pandas as pd
+import os
 import numpy as np
 from readwrite import process_sourcefile
-
-sourcefile = 'timetrialfull.csv'
+folder = os.path.join('','results')
+print('folder is:', folder)
+sourcefile = os.path.join(folder, 'timetrial160905.csv')
+print('source file is: ', sourcefile)
 df = pd.read_csv(sourcefile, parse_dates=['Date'], dayfirst=True)  # creates df with header conveniently inferred by default
 
 class Person:

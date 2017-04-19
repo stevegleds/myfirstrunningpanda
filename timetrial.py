@@ -78,10 +78,10 @@ df = df.sort_values(by=['Date', 'Runner'], ascending=[True, True])
 runnerdict will store information that will be used to create person instances
 '''
 runnerdict = {}
-print('pandas file is:', df)
+# print('pandas file is:', df)
 for index, row in df.iterrows():
     if runnerdict.get(row['Runner']):
-        print('runner exists')
+        # print('runner exists')
         pass
     else:
         runnerdict[row['Runner']] = row['Date']
@@ -91,7 +91,7 @@ print(runnerdict)
 runners = {}  # Empty dict to store runner objects
 for k, v in runnerdict.items():
     runners[k] = Person(k, v)
-print('runner people created')
+# print('runner people created')
 for runner in runners:
     print(runners[runner])
 
@@ -100,3 +100,4 @@ byrunner = df.groupby('Runner')
 byrunner['Digitime'].min()
 byrunner['Digitime'].agg([np.min, np.sum, np.mean, len])
 pb = byrunner['Digitime'].transform(min) == df['Digitime']
+print(pb)

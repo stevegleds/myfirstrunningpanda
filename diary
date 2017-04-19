@@ -1,7 +1,11 @@
+19 April 2017
+Working on classes.py but struggling to even load a csv file!
+
 11 April 2017
 Working with csv '3' created dictionary of runners with the first date they ran : runnerdict
 This seems now to have created runner objects with correct start dates
 next step: add initial times to people
+
 
 03 April 2017
 Created simple list to get user to choose file and assigned answer to sourcefile
