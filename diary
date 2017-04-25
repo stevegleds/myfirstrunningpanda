@@ -1,3 +1,8 @@
+25 April 2017
+Works ok on PC (csv files found)
+Added code to update prevPBs but always re-written with None when running python file. Need to either create a loop of some kind or use database
+Created database.py to work on db but need to learn Sqlalchemy first : see mycookbook
+
 19 April 2017
 Working on classes.py but struggling to even load a csv file!
 

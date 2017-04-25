@@ -14,18 +14,22 @@ class Person:
         self.created = created
         self.prevPace = None
         self.prevTime = None
+        self.prevDate = None
         self.pbPace = None
         self.pbTime = None
+        self.pbDate = None
 
     def __str__(self):
         return '{} started on {}'.format(self.name, self.created)
 
-    def updatePrevPB(self, prevPace, prevTime):
+    def updatePrevPB(self, prevPace, prevTime, prevDate = None):
         self.prevPace = prevPace
         self.prevTime = prevTime
+        self.prevDate = prevDate
 
     def updatePB(self, pbPace, pbTime):
-        self.pbPace = pbPace, pbTime
+        self.updatePrevPB(self.pbPace, self.pbTime, self.pbDate)
+        self.pbPace, self.pbTime = pbPace, pbTime
 
 runnerdict = dict(zip(df.Runner, df.Date))
 runners = {}
@@ -40,4 +44,4 @@ for runner in runners:
     updatePBs(runner, 9.50, "00:09:30")
 
 for runner in runners:
-    print(runners[runner].pbPace)
+    print(runners[runner].pbPace, runners[runner].pbTime, runners[runner].prevPace, runners[runner].prevTime)
