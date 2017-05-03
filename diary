@@ -1,3 +1,6 @@
+03 May 2017
+Synced with desktop
+
 25 April 2017
 Works ok on PC (csv files found)
 Added code to update prevPBs but always re-written with None when running python file. Need to either create a loop of some kind or use database
